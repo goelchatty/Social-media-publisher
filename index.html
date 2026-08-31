@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Publisher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- AUTH VIEW -->
+<div id="authScreen" class="auth-wrapper">
+  <div class="auth-card">
+    <h2 id="authTitle" style="font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">Social Media Publisher</h2>
+    <p id="authSubtitle" style="color: var(--text-secondary); font-size: 13px; margin-bottom: 24px;">Sign in to access your publishing workspace.</p>
+    
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="authEmail" class="input-control" placeholder="name@company.com" />
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="authPassword" class="input-control" placeholder="••••••••••••" oninput="handlePasswordInputs()" />
+    </div>
+
+    <div id="signupFields" style="display: none;">
+      <div class="requirements-box">
+        <div class="req-header">Password Requirements</div>
+        <div class="req-item invalid" id="reqLength">At least 8 characters</div>
+        <div class="req-item invalid" id="reqUpper">At least 1 uppercase letter</div>
+        <div class="req-item invalid" id="reqNumber">At least 1 number</div>
+        <div class="req-item invalid" id="reqSpecial">At least 1 special character (!@#$%^&*)</div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="authConfirmPassword" class="input-control" placeholder="••••••••••••" oninput="handlePasswordInputs()" />
+        <div id="matchStatus" class="match-status"></div>
+      </div>
+    </div>
+
+    <label class="checkbox-inline">
+      <input type="checkbox" id="rememberMe" />
+      <span>Keep me signed in</span>
+    </label>
+
+    <button id="authSubmitBtn" class="btn btn-primary btn-full" onclick="handleAuthSubmit()">Sign In</button>
+    <div id="authError" class="notification notification-error"></div>
+
+    <div style="text-align: center; margin-top: 18px;">
+      <a href="#" id="authToggleText" style="color: var(--accent-primary); font-size: 13px; text-decoration: none;" onclick="toggleAuthMode()">Don't have an account? Create one</a>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD VIEW -->
+<div id="appScreen" class="app-shell" style="display: none;">
+  <header class="top-nav">
+    <div class="nav-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 11a9 9 0 0 1 9 9"></path>
+        <path d="M4 4a16 16 0 0 1 16 16"></path>
+        <circle cx="5" cy="19" r="1"></circle>
+      </svg>
+      <div class="nav-brand-text">
+        <h1>Social Media Publisher</h1>
+        <p>AI Content Ingestion & Multi-Platform Dispatch</p>
+      </div>
+    </div>
+    <div class="nav-meta">
+      <div class="user-chip">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-success);"></span>
+        <span id="displayUserEmail">user@domain.com</span>
+      </div>
+      <button onclick="logout()" class="btn btn-subtle" style="padding: 6px 12px; font-size: 12px;">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tabStudioBtn" onclick="switchTab('studio')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+      Editorial Studio
+    </button>
+    <button class="tab-btn" id="tabSettingsBtn" onclick="switchTab('settings')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Integrations & Settings
+    </button>
+  </div>
+
+  <div id="tabStudio">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+      <div>
+        <h2 style="font-size: 16px; font-weight: 700;">Content Pipeline</h2>
+        <p style="font-size: 13px; color: var(--text-secondary);">Ingest RSS feed entries, synthesize briefings, and review creative assets.</p>
+      </div>
+      <button id="generateBtn" class="btn btn-primary" onclick="generatePreview()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Generate Post Preview
+      </button>
+    </div>
+
+    <div class="studio-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Source Summary</h2>
+        </div>
+        <div class="form-group">
+          <label>Executive Briefing</label>
+          <textarea id="summaryText" class="input-control" rows="8" placeholder="Pipeline output will populate here after generation..."></textarea>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Distribution Preview</h2>
+        </div>
+
+        <div class="social-card">
+          <div class="social-card-header">
+            <div class="avatar">⚡</div>
+            <div class="social-meta">
+              <h3 id="previewAuthor">Automated Publisher</h3>
+              <p>LinkedIn & Instagram • Preview Mode</p>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Social Caption</label>
+            <textarea id="captionText" class="input-control" rows="4" placeholder="Social copy will appear here..."></textarea>
+          </div>
+
+          <div id="imageWrapper" class="preview-image-container">
+            <img id="postImage" src="" alt="Infographic Asset" />
+          </div>
+        </div>
+
+        <button id="approveBtn" class="btn btn-success btn-full" onclick="publishPost()" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Approve & Publish Post
+        </button>
+
+        <div id="publishNotification" class="notification notification-success"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tabSettings" style="display: none;">
+    <div class="panel" style="max-width: 800px; margin: 0 auto;">
+      <div class="panel-header">
+        <h2>Custom Provider Credentials (BYOK)</h2>
+      </div>
+      
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+        Configure your private LLM inference endpoints and image generation models. Credentials are tied directly to your user account.
+      </p>
+
+      <div class="form-group">
+        <label>1. Text Reasoning Endpoint (Groq / OpenAI compatible)</label>
+        <input type="text" id="apiKey" class="input-control" placeholder="API Key (e.g. gsk_... or sk-...)" style="margin-bottom: 10px;" />
+        <div class="grid-2">
+          <input type="text" id="apiUrl" class="input-control" placeholder="Inference URL" value="https://api.groq.com/openai/v1/chat/completions" />
+          <input type="text" id="modelName" class="input-control" placeholder="Model Identifier" value="openai/gpt-oss-20b" />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 24px;">
+        <label>2. Visual Generation Provider</label>
+        <input type="text" id="imageApiKey" class="input-control" placeholder="Image API Key / Cloudflare Token" style="margin-bottom: 10px;" />
+        <div class="grid-2">
+          <input type="text" id="imageApiUrl" class="input-control" placeholder="Image API URL" value="https://api.openai.com/v1/images/generations" />
+          <input type="text" id="imageModel" class="input-control" placeholder="Image Model Identifier" value="dall-e-3" />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 24px;">
+        <label>3. Fallback Image Storage</label>
+        <input type="text" id="imgbbKey" class="input-control" placeholder="ImgBB API Key" />
+      </div>
+
+      <button class="btn btn-primary" onclick="saveSettings()" style="margin-top: 10px;">
+        Save Configuration
+      </button>
+      <div id="saveNotification" class="notification notification-success"></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
