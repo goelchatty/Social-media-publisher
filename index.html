@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<!-- AUTH VIEW -->
 <div id="authScreen" class="auth-wrapper">
   <div class="auth-card">
     <h2 id="authTitle" style="font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">Social Media Publisher</h2>
@@ -57,7 +56,6 @@
   </div>
 </div>
 
-<!-- DASHBOARD VIEW -->
 <div id="appScreen" class="app-shell" style="display: none;">
   <header class="top-nav">
     <div class="nav-brand">
@@ -162,8 +160,8 @@
         <label>1. Text Reasoning Endpoint (Groq / OpenAI compatible)</label>
         <input type="text" id="apiKey" class="input-control" placeholder="API Key (e.g. gsk_... or sk-...)" style="margin-bottom: 10px;" />
         <div class="grid-2">
-          <input type="text" id="apiUrl" class="input-control" placeholder="Inference URL" value="https://api.groq.com/openai/v1/chat/completions" />
-          <input type="text" id="modelName" class="input-control" placeholder="Model Identifier" value="openai/gpt-oss-20b" />
+          <input type="text" id="apiUrl" class="input-control" placeholder="Inference URL (e.g. https://api.groq.com/openai/v1/chat/completions)" />
+          <input type="text" id="modelName" class="input-control" placeholder="Model Identifier (e.g. llama-3.3-70b-versatile)" />
         </div>
       </div>
 
@@ -171,8 +169,8 @@
         <label>2. Visual Generation Provider</label>
         <input type="text" id="imageApiKey" class="input-control" placeholder="Image API Key / Cloudflare Token" style="margin-bottom: 10px;" />
         <div class="grid-2">
-          <input type="text" id="imageApiUrl" class="input-control" placeholder="Image API URL" value="https://api.openai.com/v1/images/generations" />
-          <input type="text" id="imageModel" class="input-control" placeholder="Image Model Identifier" value="dall-e-3" />
+          <input type="text" id="imageApiUrl" class="input-control" placeholder="Image API URL (e.g. Cloudflare / OpenAI endpoint)" />
+          <input type="text" id="imageModel" class="input-control" placeholder="Image Model Identifier" />
         </div>
       </div>
 
