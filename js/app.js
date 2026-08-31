@@ -1,5 +1,5 @@
-const PREVIEW_WEBHOOK_URL = "https://n8n-production-3ee68.up.railway.app/webhook/5e0c76fc-8038-4a71-866d-b268d36ce797";
-const PUBLISH_WEBHOOK_URL = "https://n8n-production-3ee68.up.railway.app/webhook/c260f7e0-4579-4b90-b2c6-43db3949ca39";
+const PREVIEW_WEBHOOK_URL = "https://https://film-poster-aid-situation.trycloudflare.com//webhook/5e0c76fc-8038-4a71-866d-b268d36ce797";
+const PUBLISH_WEBHOOK_URL = "https://https://film-poster-aid-situation.trycloudflare.com//webhook/c260f7e0-4579-4b90-b2c6-43db3949ca39";
 
 let isSignUpMode = false;
 let currentUser = null;
