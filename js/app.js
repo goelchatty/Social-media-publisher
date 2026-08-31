@@ -1,5 +1,5 @@
-const PREVIEW_WEBHOOK_URL = "http://localhost:5678/webhook/5e0c76fc-8038-4a71-866d-b268d36ce797";
-const PUBLISH_WEBHOOK_URL = "http://localhost:5678/webhook/c260f7e0-4579-4b90-b2c6-43db3949ca39";
+const PREVIEW_WEBHOOK_URL = "https://your-domain.trycloudflare.com/webhook/5e0c76fc-8038-4a71-866d-b268d36ce797";
+const PUBLISH_WEBHOOK_URL = "https://your-domain.trycloudflare.com/webhook/c260f7e0-4579-4b90-b2c6-43db3949ca39";
 
 let isSignUpMode = false;
 let currentUser = null;
@@ -176,12 +176,12 @@ function getUserKeyPrefix() {
 function loadUserSettings() {
   const prefix = getUserKeyPrefix();
   document.getElementById("apiKey").value = localStorage.getItem(prefix + "api_key") || "";
-  document.getElementById("apiUrl").value = localStorage.getItem(prefix + "api_url") || "https://api.groq.com/openai/v1/chat/completions";
-  document.getElementById("modelName").value = localStorage.getItem(prefix + "model_name") || "openai/gpt-oss-20b";
+  document.getElementById("apiUrl").value = localStorage.getItem(prefix + "api_url") || "";
+  document.getElementById("modelName").value = localStorage.getItem(prefix + "model_name") || "";
   
   document.getElementById("imageApiKey").value = localStorage.getItem(prefix + "image_api_key") || "";
-  document.getElementById("imageApiUrl").value = localStorage.getItem(prefix + "image_api_url") || "https://api.openai.com/v1/images/generations";
-  document.getElementById("imageModel").value = localStorage.getItem(prefix + "image_model") || "dall-e-3";
+  document.getElementById("imageApiUrl").value = localStorage.getItem(prefix + "image_api_url") || "";
+  document.getElementById("imageModel").value = localStorage.getItem(prefix + "image_model") || "";
   document.getElementById("imgbbKey").value = localStorage.getItem(prefix + "imgbb_key") || "";
 }
 
