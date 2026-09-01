@@ -140,6 +140,7 @@ function handleAuthSubmit() {
 
 function loginUser(email, rememberMe = false) {
   currentUser = email;
+
   if (rememberMe) {
     localStorage.setItem("app_current_session", email);
     sessionStorage.removeItem("app_current_session");
@@ -152,17 +153,22 @@ function loginUser(email, rememberMe = false) {
   document.getElementById("previewAuthor").innerText = email.split('@')[0];
   document.getElementById("authScreen").style.display = "none";
   document.getElementById("appScreen").style.display = "block";
+
   loadUserSettings();
 }
 
 function logout() {
   localStorage.removeItem("app_current_session");
   sessionStorage.removeItem("app_current_session");
+
   currentUser = null;
+
   document.getElementById("authEmail").value = "";
   document.getElementById("authPassword").value = "";
+
   const confirmPass = document.getElementById("authConfirmPassword");
   if (confirmPass) confirmPass.value = "";
+
   document.getElementById("matchStatus").style.display = "none";
   document.getElementById("rememberMe").checked = false;
   document.getElementById("appScreen").style.display = "none";
@@ -175,31 +181,92 @@ function getUserKeyPrefix() {
 
 function loadUserSettings() {
   const prefix = getUserKeyPrefix();
-  document.getElementById("apiKey").value = localStorage.getItem(prefix + "api_key") || "";
-  document.getElementById("apiUrl").value = localStorage.getItem(prefix + "api_url") || "";
-  document.getElementById("modelName").value = localStorage.getItem(prefix + "model_name") || "";
-  
-  document.getElementById("imageApiKey").value = localStorage.getItem(prefix + "image_api_key") || "";
-  document.getElementById("imageApiUrl").value = localStorage.getItem(prefix + "image_api_url") || "";
-  document.getElementById("imageModel").value = localStorage.getItem(prefix + "image_model") || "";
-  document.getElementById("imgbbKey").value = localStorage.getItem(prefix + "imgbb_key") || "";
+
+  document.getElementById("apiKey").value =
+    localStorage.getItem(prefix + "api_key") || "";
+
+  document.getElementById("apiUrl").value =
+    localStorage.getItem(prefix + "api_url") || "";
+
+  document.getElementById("modelName").value =
+    localStorage.getItem(prefix + "model_name") || "";
+
+  document.getElementById("imageApiKey").value =
+    localStorage.getItem(prefix + "image_api_key") || "";
+
+  document.getElementById("imageApiUrl").value =
+    localStorage.getItem(prefix + "image_api_url") || "";
+
+  document.getElementById("imageModel").value =
+    localStorage.getItem(prefix + "image_model") || "";
+
+  document.getElementById("imgbbKey").value =
+    localStorage.getItem(prefix + "imgbb_key") || "";
+
+  // LinkedIn settings
+  document.getElementById("linkedinToken").value =
+    localStorage.getItem(prefix + "linkedin_token") || "";
+
+  document.getElementById("linkedinPersonId").value =
+    localStorage.getItem(prefix + "linkedin_person_id") || "";
 }
 
 function saveSettings() {
   const prefix = getUserKeyPrefix();
-  localStorage.setItem(prefix + "api_key", document.getElementById("apiKey").value);
-  localStorage.setItem(prefix + "api_url", document.getElementById("apiUrl").value);
-  localStorage.setItem(prefix + "model_name", document.getElementById("modelName").value);
-  
-  localStorage.setItem(prefix + "image_api_key", document.getElementById("imageApiKey").value);
-  localStorage.setItem(prefix + "image_api_url", document.getElementById("imageApiUrl").value);
-  localStorage.setItem(prefix + "image_model", document.getElementById("imageModel").value);
-  localStorage.setItem(prefix + "imgbb_key", document.getElementById("imgbbKey").value);
+
+  localStorage.setItem(
+    prefix + "api_key",
+    document.getElementById("apiKey").value
+  );
+
+  localStorage.setItem(
+    prefix + "api_url",
+    document.getElementById("apiUrl").value
+  );
+
+  localStorage.setItem(
+    prefix + "model_name",
+    document.getElementById("modelName").value
+  );
+
+  localStorage.setItem(
+    prefix + "image_api_key",
+    document.getElementById("imageApiKey").value
+  );
+
+  localStorage.setItem(
+    prefix + "image_api_url",
+    document.getElementById("imageApiUrl").value
+  );
+
+  localStorage.setItem(
+    prefix + "image_model",
+    document.getElementById("imageModel").value
+  );
+
+  localStorage.setItem(
+    prefix + "imgbb_key",
+    document.getElementById("imgbbKey").value
+  );
+
+  // LinkedIn settings
+  localStorage.setItem(
+    prefix + "linkedin_token",
+    document.getElementById("linkedinToken").value
+  );
+
+  localStorage.setItem(
+    prefix + "linkedin_person_id",
+    document.getElementById("linkedinPersonId").value
+  );
 
   const notification = document.getElementById("saveNotification");
   notification.innerText = "Configuration saved successfully.";
   notification.style.display = "block";
-  setTimeout(() => { notification.style.display = "none"; }, 3500);
+
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3500);
 }
 
 async function generatePreview() {
@@ -217,29 +284,53 @@ async function generatePreview() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        apiKey: localStorage.getItem(prefix + "api_key") || document.getElementById("apiKey").value,
-        apiUrl: localStorage.getItem(prefix + "api_url") || document.getElementById("apiUrl").value,
-        modelName: localStorage.getItem(prefix + "model_name") || document.getElementById("modelName").value,
-        imageApiKey: localStorage.getItem(prefix + "image_api_key") || document.getElementById("imageApiKey").value,
-        imageApiUrl: localStorage.getItem(prefix + "image_api_url") || document.getElementById("imageApiUrl").value,
-        imageModel: localStorage.getItem(prefix + "image_model") || document.getElementById("imageModel").value,
-        imgbbKey: localStorage.getItem(prefix + "imgbb_key") || document.getElementById("imgbbKey").value
+        apiKey:
+          localStorage.getItem(prefix + "api_key") ||
+          document.getElementById("apiKey").value,
+
+        apiUrl:
+          localStorage.getItem(prefix + "api_url") ||
+          document.getElementById("apiUrl").value,
+
+        modelName:
+          localStorage.getItem(prefix + "model_name") ||
+          document.getElementById("modelName").value,
+
+        imageApiKey:
+          localStorage.getItem(prefix + "image_api_key") ||
+          document.getElementById("imageApiKey").value,
+
+        imageApiUrl:
+          localStorage.getItem(prefix + "image_api_url") ||
+          document.getElementById("imageApiUrl").value,
+
+        imageModel:
+          localStorage.getItem(prefix + "image_model") ||
+          document.getElementById("imageModel").value,
+
+        imgbbKey:
+          localStorage.getItem(prefix + "imgbb_key") ||
+          document.getElementById("imgbbKey").value
       })
     });
+
     const data = await res.json();
 
     document.getElementById("summaryText").value = data.summary || "";
     document.getElementById("captionText").value = data.caption || "";
-    
+
     currentImageUrl = data.imageUrl || "";
+
     if (currentImageUrl) {
       imgEl.src = currentImageUrl;
       imgWrapper.style.display = "block";
     }
 
     approveBtn.disabled = false;
+
   } catch (err) {
     alert("Pipeline Execution Error: " + err.message);
+
   } finally {
     btn.disabled = false;
     btn.innerText = "Generate Post Preview";
@@ -265,10 +356,15 @@ async function publishPost() {
     });
 
     const data = await res.json();
-    statusBox.innerText = data.status || "Posts published successfully.";
+
+    statusBox.innerText =
+      data.status || "Posts published successfully.";
+
     statusBox.style.display = "block";
+
   } catch (err) {
     alert("Publishing Dispatch Error: " + err.message);
+
   } finally {
     btn.disabled = false;
     btn.innerText = "Approve & Publish Post";
