@@ -202,13 +202,6 @@ function loadUserSettings() {
 
   document.getElementById("imgbbKey").value =
     localStorage.getItem(prefix + "imgbb_key") || "";
-
-  // LinkedIn settings
-  document.getElementById("linkedinToken").value =
-    localStorage.getItem(prefix + "linkedin_token") || "";
-
-  document.getElementById("linkedinPersonId").value =
-    localStorage.getItem(prefix + "linkedin_person_id") || "";
 }
 
 function saveSettings() {
@@ -247,17 +240,6 @@ function saveSettings() {
   localStorage.setItem(
     prefix + "imgbb_key",
     document.getElementById("imgbbKey").value
-  );
-
-  // LinkedIn settings
-  localStorage.setItem(
-    prefix + "linkedin_token",
-    document.getElementById("linkedinToken").value
-  );
-
-  localStorage.setItem(
-    prefix + "linkedin_person_id",
-    document.getElementById("linkedinPersonId").value
   );
 
   const notification = document.getElementById("saveNotification");
@@ -341,7 +323,6 @@ async function publishPost() {
   const btn = document.getElementById("approveBtn");
   const statusBox = document.getElementById("publishNotification");
   const caption = document.getElementById("captionText").value;
-  const prefix = getUserKeyPrefix();
 
   btn.disabled = true;
   btn.innerText = "Publishing to Social Media...";
@@ -352,16 +333,7 @@ async function publishPost() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         caption: caption,
-        imageUrl: currentImageUrl,
-
-        // User-specific LinkedIn credentials
-        linkedinToken:
-          localStorage.getItem(prefix + "linkedin_token") ||
-          document.getElementById("linkedinToken").value,
-
-        linkedinPersonId:
-          localStorage.getItem(prefix + "linkedin_person_id") ||
-          document.getElementById("linkedinPersonId").value
+        imageUrl: currentImageUrl
       })
     });
 
