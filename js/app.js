@@ -341,6 +341,7 @@ async function publishPost() {
   const btn = document.getElementById("approveBtn");
   const statusBox = document.getElementById("publishNotification");
   const caption = document.getElementById("captionText").value;
+  const prefix = getUserKeyPrefix();
 
   btn.disabled = true;
   btn.innerText = "Publishing to Social Media...";
@@ -351,7 +352,16 @@ async function publishPost() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         caption: caption,
-        imageUrl: currentImageUrl
+        imageUrl: currentImageUrl,
+
+        // User-specific LinkedIn credentials
+        linkedinToken:
+          localStorage.getItem(prefix + "linkedin_token") ||
+          document.getElementById("linkedinToken").value,
+
+        linkedinPersonId:
+          localStorage.getItem(prefix + "linkedin_person_id") ||
+          document.getElementById("linkedinPersonId").value
       })
     });
 
