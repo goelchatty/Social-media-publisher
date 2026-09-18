@@ -15,10 +15,9 @@
 <div id="authScreen" class="auth-wrapper">
   <div class="auth-card">
     <div class="auth-mark">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <path d="M4 11a9 9 0 0 1 9 9"></path>
-        <path d="M4 4a16 16 0 0 1 16 16"></path>
-        <circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none"></circle>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 3.5V7a2.5 2.5 0 0 1 2.5-2.5h10A2.5 2.5 0 0 1 20 7Z"></path>
+        <path d="M12.6 8.1l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7Z" fill="currentColor" stroke="none"></path>
       </svg>
     </div>
 
@@ -72,10 +71,9 @@
     <div class="appbar-inner">
       <a class="brand" href="./">
         <span class="brand-mark">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-            <path d="M4 11a9 9 0 0 1 9 9"></path>
-            <path d="M4 4a16 16 0 0 1 16 16"></path>
-            <circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none"></circle>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 3.5V7a2.5 2.5 0 0 1 2.5-2.5h10A2.5 2.5 0 0 1 20 7Z"></path>
+            <path d="M12.6 8.1l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7Z" fill="currentColor" stroke="none"></path>
           </svg>
         </span>
         <span class="brand-name">Publisher</span>
@@ -105,7 +103,7 @@
       </div>
 
       <section class="composer">
-        <textarea id="userPrompt" class="composer-input autosize" rows="3" placeholder="Announce our new analytics dashboard launching next week — upbeat, mention it saves teams about five hours a week"></textarea>
+        <textarea id="userPrompt" class="composer-input autosize" rows="2" placeholder="Announce our new analytics dashboard launching next week — upbeat, mention it saves teams about five hours a week"></textarea>
 
         <div class="composer-foot">
           <button id="generateBtn" class="btn btn-primary" onclick="generatePreview()">
@@ -253,7 +251,7 @@
   function autosize(el) {
     if (!el) return;
     el.style.height = "auto";
-    const floor = el.id === "userPrompt" ? 62 : 150;
+    const floor = el.id === "userPrompt" ? 44 : 150;
     el.style.height = Math.max(el.scrollHeight, floor) + "px";
   }
 

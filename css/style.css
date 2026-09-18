@@ -233,7 +233,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--r-lg);
-  padding: 6px 6px 10px;
+  padding: 4px 6px 8px;
   margin-bottom: 24px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -245,7 +245,7 @@ body {
 
 .composer-input {
   width: 100%;
-  min-height: 62px;
+  min-height: 44px;
   border: none;
   background: none;
   resize: none;
@@ -254,7 +254,7 @@ body {
   font-size: 15px;
   line-height: 1.6;
   color: var(--ink);
-  padding: 12px 12px 8px;
+  padding: 10px 12px 6px;
 }
 
 .composer-input:focus { outline: none; }
