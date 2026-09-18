@@ -245,7 +245,7 @@ body {
 
 .composer-input {
   width: 100%;
-  min-height: 44px;
+  min-height: 44px !important;
   border: none;
   background: none;
   resize: none;
@@ -516,6 +516,10 @@ textarea.input-control { resize: vertical; line-height: 1.6; }
 textarea.autosize {
   resize: none;
   overflow: hidden;
+}
+
+/* The summary and caption boxes share a floor; the composer has its own. */
+textarea.autosize:not(.composer-input) {
   min-height: 150px;
 }
 
