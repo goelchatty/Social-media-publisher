@@ -257,6 +257,12 @@ async function generatePreview() {
   const imgEl = document.getElementById("postImage");
   const imgWrapper = document.getElementById("imageWrapper");
   const prefix = getUserKeyPrefix();
+  const promptEl = document.getElementById("userPrompt");
+
+  if (!promptEl || !promptEl.value.trim()) {
+    alert("Please enter a prompt describing the post you want generated.");
+    return;
+  }
 
   btn.disabled = true;
   btn.innerText = "Synthesizing Content...";
@@ -266,6 +272,8 @@ async function generatePreview() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        userPrompt: promptEl.value,
+
         apiKey:
           localStorage.getItem(prefix + "api_key") ||
           document.getElementById("apiKey").value,
