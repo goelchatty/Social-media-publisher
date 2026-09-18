@@ -105,7 +105,7 @@
       </div>
 
       <section class="composer">
-        <textarea id="userPrompt" class="composer-input" rows="3" placeholder="Announce our new analytics dashboard launching next week — upbeat, mention it saves teams about five hours a week"></textarea>
+        <textarea id="userPrompt" class="composer-input autosize" rows="3" placeholder="Announce our new analytics dashboard launching next week — upbeat, mention it saves teams about five hours a week"></textarea>
 
         <div class="composer-foot">
           <div class="chips">
@@ -132,7 +132,7 @@
             <p>Background behind the post. Edit freely.</p>
           </div>
           <div class="card-body">
-            <textarea id="summaryText" class="input-control reading" rows="14" placeholder="Your summary will appear here after you generate a draft."></textarea>
+            <textarea id="summaryText" class="input-control reading autosize" rows="4" placeholder="Your summary will appear here after you generate a draft."></textarea>
           </div>
         </section>
 
@@ -158,7 +158,7 @@
                 </div>
               </div>
 
-              <textarea id="captionText" class="post-caption" rows="4" placeholder="Your caption will appear here after you generate a draft."></textarea>
+              <textarea id="captionText" class="post-caption autosize" rows="4" placeholder="Your caption will appear here after you generate a draft."></textarea>
 
               <div id="imageWrapper" class="post-media">
                 <img id="postImage" src="" alt="Generated image for this post" />
@@ -269,6 +269,44 @@
     box.focus();
     box.setSelectionRange(box.value.length, box.value.length);
   }
+
+  // Grows textareas to fit their content instead of scrolling or being dragged.
+  function autosize(el) {
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = Math.max(el.scrollHeight, 96) + "px";
+  }
+
+  function autosizeAll() {
+    document.querySelectorAll("textarea.autosize").forEach(autosize);
+  }
+
+  document.addEventListener("input", function (e) {
+    if (e.target.classList && e.target.classList.contains("autosize")) autosize(e.target);
+  });
+
+  // app.js sets .value directly, which fires no event — re-measure after it runs.
+  (function () {
+    const origGenerate = window.generatePreview;
+    if (typeof origGenerate === "function") {
+      window.generatePreview = async function () {
+        const r = await origGenerate.apply(this, arguments);
+        autosizeAll();
+        return r;
+      };
+    }
+    const origLogin = window.loginUser;
+    if (typeof origLogin === "function") {
+      window.loginUser = function () {
+        const r = origLogin.apply(this, arguments);
+        setTimeout(autosizeAll, 0);
+        return r;
+      };
+    }
+  })();
+
+  window.addEventListener("load", autosizeAll);
+  window.addEventListener("resize", autosizeAll);
 
   // Keeps the header and post avatars in sync with the signed-in user.
   (function () {

@@ -242,6 +242,7 @@ body {
   border: none;
   background: none;
   resize: none;
+  overflow: hidden;
   font-family: var(--font-ui);
   font-size: 15px;
   line-height: 1.6;
@@ -292,6 +293,8 @@ body {
   gap: 20px;
   align-items: start;
 }
+
+.split > .card { align-self: start; }
 
 @media (max-width: 920px) {
   .split { grid-template-columns: 1fr; }
@@ -410,7 +413,8 @@ body {
   border: 1px solid transparent;
   border-radius: 6px;
   background: none;
-  resize: vertical;
+  resize: none;
+  overflow: hidden;
   font-family: var(--font-read);
   font-size: 16px;
   line-height: 1.65;
@@ -485,6 +489,13 @@ body {
 }
 
 textarea.input-control { resize: vertical; line-height: 1.6; }
+
+/* Auto-growing textareas: no scrollbar, no drag handle */
+textarea.autosize {
+  resize: none;
+  overflow: hidden;
+  min-height: 96px;
+}
 
 textarea.reading {
   font-family: var(--font-read);
